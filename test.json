@@ -1,0 +1,147 @@
+{
+    "resources": {
+        "clothes": {
+            "name": "Clothes",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/d/dc/Goods_clothes.png/240px-Goods_clothes.png",
+            "attribute": {
+                "base_cost": 30
+            },
+            "tags": ["needs"]
+        },
+        "fabric": {
+            "name": "Fabric",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/c/c0/Goods_fabric.png/240px-Goods_fabric.png",
+            "attribute": {
+                "base_cost": 20
+            },
+            "tags": ["needs"]
+        },
+        "fish": {
+            "name": "Fish",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/4/48/Goods_fish.png/240px-Goods_fish.png",
+            "attribute": {
+                "base_cost": 20
+            },
+            "tags": ["needs"]
+        },
+        "furniture": {
+            "name": "Furniture",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/6/6b/Goods_furniture.png/40px-Goods_furniture.png",
+            "attribute": {
+                "base_cost": 30
+            },
+            "tags": ["needs"]
+        },
+        "grain": {
+            "name": "Grain",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/0/05/Goods_grain.png/40px-Goods_grain.png",
+            "attribute": {
+                "base_cost": 20
+            },
+            "tags": ["needs"]
+        },
+        "groceries": {
+            "name": "Groceries",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/e/ee/Goods_groceries.png/40px-Goods_groceries.png",
+            "attribute": {
+                "base_cost": 30
+            },
+            "tags": ["needs"]
+        },
+        "paper": {
+            "name": "Paper",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/c/cc/Goods_paper.png/40px-Goods_paper.png",
+            "attribute": {
+                "base_cost": 30
+            },
+            "tags": ["needs"]
+        },
+        "wood": {
+            "name": "Wood",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/6/6f/Goods_wood.png/40px-Goods_wood.png",
+            "attribute": {
+                "base_cost": 20
+            },
+            "tags": ["needs"]
+        },
+        "electricity": {
+            "name": "Electricity",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/3/31/Goods_electricity.png/40px-Goods_electricity.png",
+            "attribute": {
+                "worth": 30
+            },
+            "tags": ["needs", "local_good"]
+        },
+        "services": {
+            "name": "services",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/f/fe/Goods_services.png/40px-Goods_services.png",
+            "attribute": {
+                "worth": 30
+            },
+            "tags": ["needs", "local_good"]
+        },
+        "transportation": {
+            "name": "Transportation",
+            "icon_url": "https://vic3.paradoxwikis.com/images/thumb/e/e3/Goods_transportation.png/40px-Goods_transportation.png",
+            "attribute": {
+                "worth": 30
+            },
+            "tags": ["needs", "local_good"]
+        }
+    },
+    "processors": {
+        "food_industries": {
+            name: "Food Industries",
+            productions: {
+                "Base": {
+                    "Bakeries": {
+                        "groceries": +45,
+                        "grain": -40
+                    },
+                    "Sweeteners": {
+                        "groceries": +65,
+                        "grain": -40,
+                        "sugar": -15
+                    },
+                    "Baking Powder": {
+                        "groceries": +120,
+                        "grain": -80,
+                        "sugar": -30
+                    }
+                },
+                "Canning": {
+                    "Jars": null,
+                    "Canneries": {
+                        "groceries": +30,
+                        "grain": +20,
+                        "fish": -20,
+                        "iron": -10
+                    },
+                    "Vacuum Canning": {
+                        "groceries": +60,
+                        "grain": +30,
+                        "fish": -30,
+                        "meat": -20,
+                        "iron": -10,
+                        "oil": -5
+                    }
+                },
+                "Distilleries": {
+                    "Prioritize Grocery Production": null,
+                    "Pot Stills": {
+                        "liquor": +60,
+                        "groceries": -30,
+                        "sugar": -25
+                    },
+                    "Patent Stills": {
+                        "liquor": +100,
+                        "groceries": -40,
+                        "sugar": -25,
+                        "glass": -10
+                    }
+                }
+            }
+        }
+    }
+}
+

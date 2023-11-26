@@ -1,0 +1,11 @@
+{
+    "name": "vic3prodChains",
+    "version": "1.0.0",
+    "dependencies": {
+        "elkjs": "^0.8.2",
+        "jomini": "^0.9.0",
+        "three": "^0.158.0",
+        "webp-converter": "^2.3.3",
+        "yaml": "^2.3.4"
+    }
+}

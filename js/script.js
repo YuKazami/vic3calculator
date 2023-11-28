@@ -217,14 +217,21 @@ async function main(){
         const building_element = document.createElement('building-settings')
 
         // TODO: load into name slot
-        building_element.shadowRoot.append(getLocalized(building))
+        //building_element.shadowRoot.append(getLocalized(building))
 
         const building_pmgs_element = building_element.shadowRoot.getElementById('building-pmgs')
         const pmgs = value['production_method_groups']
 
         for(const pmg of pmgs){
-            const loc_name = getLocalized(pmg)
-            building_pmgs_element.append(loc_name, ' ')
+            const pmg_loc_name = getLocalized(pmg)
+            const pmg_choicebox_element = document.createElement('pmg-choicebox')
+            const pms = game_data['production_method_groups'][pmg]['production_methods']
+            for(const pm of pms){
+                const pm_loc_name = getLocalized(pm)
+                pmg_choicebox_element.shadowRoot.append(pm_loc_name, ' ')
+            }
+
+            building_pmgs_element.append(pmg_choicebox_element, ' ')
         }
 
         graph_setting.append(building_element, document.createElement('br'), document.createElement('br'))

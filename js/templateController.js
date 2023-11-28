@@ -33,4 +33,4 @@ const createSlot = (tag, slotName = '', addToElement = null) => {
     return slot;
 };
 
-registerComponents('building-settings')
+registerComponents('building-settings', 'pmg-choicebox')

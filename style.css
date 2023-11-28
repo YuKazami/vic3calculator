@@ -1,6 +1,6 @@
 body {
-  font: 14px helvetica neue, helvetica, arial, sans-serif;
-  background-image: url('./images/body-bg.jpg');
+    font: 14px helvetica neue, helvetica, arial, sans-serif;
+    background-image: url('./images/body-bg.jpg');
 }
 
 #graph-settings {
@@ -11,9 +11,19 @@ body {
     width: 0;
     top: 0;
     left: 0;
-    z-index: 2;
+    bottom: 0;
+    z-index: 1;
     padding-top: 1%;
     transition: 0.5s;
+}
+
+#scrollbar-container {
+    overflow-y: auto;
+    direction: rtl;
+}
+
+#graph-settings-content {
+    direction: ltr;
 }
 
 #graph-settings:not(.open) #graph-settings-content {
@@ -25,11 +35,6 @@ body {
     padding-left: 1%;
     padding-right: 1%;
     transition: 0.5s;
-
-}
-
-#scrollbar-container {
-    overflow-y: auto;
 }
 
 #graph-settings.open #toggleSettingsBtn {
@@ -42,7 +47,7 @@ body {
     top: 50%;
     translate: 50% -50%;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     border-radius: 50%;
     width: 1.5em;
     height: 1.5em;
@@ -56,14 +61,14 @@ body {
 
 #toggleSettingsBtn span {
     vertical-align: center;
-     text-align: center;
-     margin: 0
+    text-align: center;
+    margin: 0
 }
 
 #cy {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }

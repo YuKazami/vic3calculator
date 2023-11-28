@@ -1,0 +1,48 @@
+<template>
+    <div id="graph-settings-main">
+        <div id="graph-settings">
+            <button onclick="closeNav()">&times;</button>
+            template test
+
+        </div>
+        <button onclick="openNav()">open</button>
+    </div>
+
+
+    <script type="text/javascript">
+        console.log(this)
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+function openNav() {
+  document.getElementById("graph-settings").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+  document.getElementById("graph-settings").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+}
+    </script>
+
+    <style>
+        button {
+            z-index: 1;
+        }
+
+        #graph-settings {
+            color: antiquewhite;
+            background-image: url("../images/graph-settings-bg.jpg");
+            height: 100%;
+            width: 100px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            padding-top: 1%;
+            padding-left: 1%;
+            overflow-x: hidden;
+        }
+
+
+    </style>
+</template>

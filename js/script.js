@@ -24,7 +24,7 @@ async function fill_cytoscape(cy) {
 
         cy.add({
             group: 'nodes',
-            data: {id: good, name: name, icon: './icons/png/' + icon_name + '.png'}
+            data: {id: good, name: name, icon: './images/icons/png/' + icon_name + '.png'}
         })
     }
 
@@ -35,7 +35,7 @@ async function fill_cytoscape(cy) {
 
         cy.add({
             group: 'nodes',
-            data: {id: building, name: name, icon: './icons/png/' + icon_name + '.png'}
+            data: {id: building, name: name, icon: './images/icons/png/' + icon_name + '.png'}
         })
     }
 }
@@ -83,6 +83,7 @@ async function refresh_edges(selected_pms) {
         let outputs = {}
 
         for (const pm of building_val) {
+            if (!pm) continue;
             if (!game_data["production_methods"][pm]["building_modifiers"]) continue;
             if (!game_data["production_methods"][pm]["building_modifiers"]["workforce_scaled"]) continue;
 
@@ -139,7 +140,7 @@ async function remove_isolated_nodes(){
     })
 }
 
-async function main() {
+async function graph_controller() {
     await fetch_files()
 
     await init_cytoscape()
@@ -149,7 +150,9 @@ async function main() {
     let selected_pms = {}
 
     //region Temp
-    for(const building of Object.keys(game_data["buildings"])){
+    let selected_buildings = ["building_food_industry", "building_textile_mills", "building_tooling_workshops", "building_paper_mills"]
+    selected_buildings = Object.keys(game_data["buildings"])
+    for(const building of selected_buildings){
         const pmgs = game_data["buildings"][building]["production_method_groups"]
         let pms = []
         for(const pmg of pmgs){
@@ -157,7 +160,10 @@ async function main() {
         }
         selected_pms[building] = pms
     }
-    selected_pms["building_tooling_workshops"] = ["pm_steel", "pm_automation_disabled", "pm_merchant_guilds_building_tooling_workshops"]
+    //selected_pms["building_food_industry"] = ["pm_baking_powder", "pm_cannery", "pm_pot_stills"]
+    //selected_pms["building_textile_mills"] = []
+    //selected_pms["building_tooling_workshops"] = ["pm_steel", "pm_automation_disabled", "pm_merchant_guilds_building_tooling_workshops"]
+    //selected_pms["building_paper_mills"] = ["pm_bleached_paper"]
     //delete selected_pms["building_tooling_workshops"]
     //delete selected_pms["building_iron_mine"]
 
@@ -193,4 +199,18 @@ async function main() {
     }).run()
 }
 
+async function main(){
+    await graph_controller()
+
+    //neues Zeug
+    const graph_setting = document.getElementById('graph-settings-content')
+    for(const building of Object.keys(game_data["buildings"])){
+        const building_element = document.createElement('building-settings')
+        building_element.shadowRoot.append(building)
+        //...
+
+
+        graph_setting.append(building_element, document.createElement('br'))
+    }
+}
 main()

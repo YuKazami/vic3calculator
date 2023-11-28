@@ -8,11 +8,12 @@ body {
     background-image: url("./images/graph-settings-bg.jpg");
     height: 100%;
     position: fixed;
+    width: 0;
     top: 0;
     left: 0;
     z-index: 2;
     padding-top: 1%;
-    /*transition: 0.5s;*/
+    transition: 0.5s;
 }
 
 #graph-settings:not(.open) #graph-settings-content {
@@ -20,10 +21,15 @@ body {
 }
 
 #graph-settings.open {
-    width: unset;
+    width: 500px;
     padding-left: 1%;
     padding-right: 1%;
-    /*transition: 0.5s;*/
+    transition: 0.5s;
+
+}
+
+#graph-settings-content {
+    overflow-y: auto;
 }
 
 #graph-settings.open #toggleSettingsBtn {

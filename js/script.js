@@ -1,5 +1,5 @@
 let game_data;
-let loc_goods;
+let localization_data;
 let cy;
 
 async function fetch_files() {
@@ -12,14 +12,14 @@ async function fetch_files() {
     await fetch("localization/german.json")
         .then(response => response.json())
         .then(data => {
-            loc_goods = data
+            localization_data = data
         })
 }
 
 async function fill_cytoscape(cy) {
     // add goods
     for (const good of Object.keys(game_data["goods"])) {
-        const name = loc_goods[good] ? loc_goods[good] : good
+        const name = getLocalized(good) ? getLocalized(good) : good
         const icon_name = game_data["goods"][good]['texture'].split('/').at(-1).replace('.dds', '')
 
         cy.add({
@@ -30,7 +30,7 @@ async function fill_cytoscape(cy) {
 
     // add buildings
     for (const building of Object.keys(game_data["buildings"])) {
-        const name = loc_goods[building] ? loc_goods[building] : building
+        const name = getLocalized(building) ? getLocalized(building) : building
         const icon_name = game_data["buildings"][building]['texture'].split('/').at(-1).replace('.dds', '')
 
         cy.add({
@@ -59,8 +59,8 @@ async function init_cytoscape() {
                 style: {
                     'label': 'data(name)',
                     'width': 3,
-                    'line-color': '#ccc',
-                    'target-arrow-color': '#ccc',
+                    'line-color': 'goldenrod',
+                    'target-arrow-color': 'goldenrod',
                     'target-arrow-shape': 'triangle',
                     'curve-style': 'bezier'
                 }
@@ -141,8 +141,6 @@ async function remove_isolated_nodes(){
 }
 
 async function graph_controller() {
-    await fetch_files()
-
     await init_cytoscape()
     // TODO get selected buildings, toggle all, toggle by section(mine/farm/etc)
     // TODO get selected PMs
@@ -169,7 +167,7 @@ async function graph_controller() {
 
     //endregion
 
-    console.log(selected_pms)
+    //console.log(selected_pms)
 
 
     await refresh_edges(selected_pms)
@@ -199,18 +197,37 @@ async function graph_controller() {
     }).run()
 }
 
+function getLocalized(word){
+    let localized = localization_data[word]
+    if(localized.includes('$')){
+        localized = localization_data[localized.replaceAll('$', '')]
+    }
+
+    return localized
+}
+
 async function main(){
+    await fetch_files()
+
     await graph_controller()
 
     //neues Zeug
     const graph_setting = document.getElementById('graph-settings-content')
-    for(const building of Object.keys(game_data["buildings"])){
+    for(const [building, value] of Object.entries(game_data["buildings"])){
         const building_element = document.createElement('building-settings')
-        building_element.shadowRoot.append(building)
-        //...
 
+        // TODO: load into name slot
+        building_element.shadowRoot.append(getLocalized(building))
 
-        graph_setting.append(building_element, document.createElement('br'))
+        const building_pmgs_element = building_element.shadowRoot.getElementById('building-pmgs')
+        const pmgs = value['production_method_groups']
+
+        for(const pmg of pmgs){
+            const loc_name = getLocalized(pmg)
+            building_pmgs_element.append(loc_name, ' ')
+        }
+
+        graph_setting.append(building_element, document.createElement('br'), document.createElement('br'))
     }
 }
 main()

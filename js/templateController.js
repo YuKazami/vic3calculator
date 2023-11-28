@@ -1,3 +1,5 @@
+
+
 const registerComponents = (...components) =>
     Promise.all(components.map(registerComponent));
 

@@ -199,6 +199,10 @@ async function graph_controller() {
 
 function getLocalized(word){
     let localized = localization_data[word]
+    if (!localized) {
+        return word
+    }
+
     if(localized.includes('$')){
         localized = localization_data[localized.replaceAll('$', '')]
     }
@@ -212,12 +216,15 @@ async function main(){
     await graph_controller()
 
     //neues Zeug
-    const graph_setting = document.getElementById('graph-settings-content')
+    const graph_setting = document.getElementById('graph-settings-body')
     for(const [building, value] of Object.entries(game_data["buildings"])){
         const building_element = document.createElement('building-settings')
+        const buildingNameSlot = createSlot('span', 'buildingName', building_element);
+        buildingNameSlot.innerText = getLocalized(building)
+
 
         // TODO: load into name slot
-        //building_element.shadowRoot.append(getLocalized(building))
+        //building_element.shadowRoot.append()
 
         const building_pmgs_element = building_element.shadowRoot.getElementById('building-pmgs')
         const pmgs = value['production_method_groups']

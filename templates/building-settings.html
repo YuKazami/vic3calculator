@@ -1,9 +1,14 @@
 <template>
     <button>ICON</button>
-    Building-Name
-    Building-Inputs
-    Building-Outputs
+    <slot name="buildingName">Building-Name</slot>
+    <slot name="buildingInputs">Inputs</slot>
+    <slot name="buildingOutputs">Outputs</slot>
+
     <div id="building-pmgs">
 
     </div>
+
+    <style>
+
+    </style>
 </template>

@@ -3,6 +3,10 @@ body {
     background-image: url('./images/body-bg.jpg');
 }
 
+hr {
+    color: goldenrod;
+}
+
 #graph-settings {
     color: antiquewhite;
     background-image: url("./images/graph-settings-bg.jpg");
@@ -15,20 +19,50 @@ body {
     z-index: 1;
     padding-top: 1%;
     transition: 0.5s;
-}
-
-#scrollbar-container {
     overflow-y: auto;
-    direction: rtl;
+    overflow-x: hidden;
+    scroll-margin-right: 100px;
+    white-space: nowrap;
 }
 
-#graph-settings-content {
-    direction: ltr;
+#graph-settings-header {
+    width: inherit;
+    height: 45px;
+    text-align: center;
+    font-size: 30px;
+    top: 0;
+    position: sticky;
 }
 
-#graph-settings:not(.open) #graph-settings-content {
-    display: none;
+#toggleSettingsBtn {
+    left: 1%;
+    top: 10px;
+    position: fixed;
+    z-index: 2;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 30px;
+    border-color: goldenrod;
+    background-color: #224134;
+
+    /*TODO*/
+    background-image: url("./images/icons/png/goto.png");
+    background-repeat: no-repeat;
 }
+
+
+#toggleSettingsBtn span {
+    vertical-align: center;
+    text-align: center;
+    margin: 0
+}
+
+#graph-settings-body {
+
+
+}
+
 
 #graph-settings.open {
     width: 500px;
@@ -40,29 +74,6 @@ body {
 #graph-settings.open #toggleSettingsBtn {
     transform: rotate(180deg);
     padding: 0;
-}
-
-#toggleSettingsBtn {
-    right: 0;
-    top: 50%;
-    translate: 50% -50%;
-    position: absolute;
-    z-index: 2;
-    border-radius: 50%;
-    width: 1.5em;
-    height: 1.5em;
-    border-color: goldenrod;
-    background-color: darkgreen;
-    font-size: 30px;
-
-    display: table-cell;
-    vertical-align: middle;
-}
-
-#toggleSettingsBtn span {
-    vertical-align: center;
-    text-align: center;
-    margin: 0
 }
 
 #cy {

@@ -2,6 +2,8 @@ let game_data;
 let localization_data;
 let cy;
 
+const paradoxIconsPath = "./images/paradox/gfx/interface/icons/"
+
 async function fetch_files() {
     await fetch("game_files.json")
         .then(response => response.json())
@@ -24,7 +26,7 @@ async function fill_cytoscape(cy) {
 
         cy.add({
             group: 'nodes',
-            data: {id: good, name: name, icon: './images/icons/png/' + icon_name + '.png'}
+            data: {id: good, name: name, icon: paradoxIconsPath + 'goods_icons/' + icon_name + '.png'}
         })
     }
 
@@ -35,7 +37,7 @@ async function fill_cytoscape(cy) {
 
         cy.add({
             group: 'nodes',
-            data: {id: building, name: name, icon: './images/icons/png/' + icon_name + '.png'}
+            data: {id: building, name: name, icon: paradoxIconsPath + 'building_icons/' + icon_name + '.png'}
         })
     }
 }
@@ -218,29 +220,70 @@ async function main(){
     //neues Zeug
     const graph_setting = document.getElementById('graph-settings-body')
     for(const [building, value] of Object.entries(game_data["buildings"])){
-        const building_element = document.createElement('buildingRoot')
+        const building_element = document.createElement('building-settings')
 
         const buildingNameSlot = createSlot('span', 'buildingName', building_element);
         buildingNameSlot.innerText = getLocalized(building)
 
-        //const building_pmgs_element = building_element.shadowRoot.getElementById('building-pmgs')
-        const buildingPmgsSlot = createSlot('span', 'buildingPmgs', building_element)
+        const buildingIconSlot = createSlot('div', 'buildingIcon', building_element)
+        const buildingIconInputElement = document.createElement('input')
+        buildingIconInputElement.id = 'checkbox_' + building
+        buildingIconInputElement.type = 'checkbox'
+        buildingIconInputElement.checked = true
+        buildingIconInputElement.classList.add('building-icon-checkbox')
+
+        const buildingIconLabelElement = document.createElement('label')
+        buildingIconLabelElement.setAttribute('for', buildingIconInputElement.id)
+
+        const buildingIconImgElement = document.createElement('img')
+        const icon_name = game_data["buildings"][building]['texture'].split('/').at(-1).replace('.dds', '.png')
+        buildingIconImgElement.src = paradoxIconsPath + 'building_icons/' + icon_name
+
+        buildingIconLabelElement.append(buildingIconImgElement)
+        buildingIconSlot.append(buildingIconInputElement, buildingIconLabelElement)
+
+        // TODO Inputs Outputs
+
+
+        const buildingPmgsElement = building_element.shadowRoot.getElementById('buildingPmgs')
         const pmgs = value['production_method_groups']
 
         for(const pmg of pmgs){
             const pmg_loc_name = getLocalized(pmg)
-            const pmgElement = document.createElement('pmgRoot')
-            //const pmg_choicebox_element = document.createElement('pmg-choicebox')
-            const pmgPmsSlot = createSlot('span', 'pmgPms', pmgElement)
+            const pmgElement = document.createElement('pmg-choicebox')
+            const pmgPmsElement = pmgElement.shadowRoot.getElementById('pmgPms')
+
+            const pmgNameSlot = createSlot('span', 'pmgName', pmgElement)
+            pmgNameSlot.innerText = pmg_loc_name
+
             const pms = game_data['production_method_groups'][pmg]['production_methods']
+            let first = true
             for(const pm of pms){
                 const pm_loc_name = getLocalized(pm)
-                pmgPmsSlot.append(pm_loc_name, ' ')
+                const pmButtonElement = document.createElement('input')
+                pmButtonElement.name = pmg
+                pmButtonElement.type = 'radio'
+                pmButtonElement.id = 'radio_button_' + pm
+                pmButtonElement.classList.add('pm-radio-button')
+
+                const pmLabelElement = document.createElement('label')
+                pmLabelElement.setAttribute('for', pmButtonElement.id)
+
+                const pmImgElement = document.createElement('img')
+                const icon_name = game_data["production_methods"][pm]['texture'].split('/').at(-1).replace('.dds', '')
+                pmImgElement.src = paradoxIconsPath + 'production_method_icons/' + icon_name + '.png'
+
+                pmLabelElement.append(pmImgElement)
+
+                if(first){
+                    pmButtonElement.checked = true
+                    first = false
+                }
+
+                pmgPmsElement.append(pmButtonElement, pmLabelElement)
             }
-
-            buildingPmgsSlot.append(pmgPmsSlot, ' ')
+            buildingPmgsElement.append(pmgElement)
         }
-
         graph_setting.append(building_element, document.createElement('br'), document.createElement('br'))
     }
 }

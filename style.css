@@ -7,31 +7,108 @@ hr {
     color: goldenrod;
 }
 
+.hBox {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.vBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input {
+    color: lightgreen;
+}
+
+.output {
+    color: lightcoral;
+}
+
+.pm-radio-button {
+    display: none;
+}
+
+.pm-radio-button + label img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.pm-radio-button + label {
+    display: flex;
+    justify-content: center;
+}
+
+.pm-radio-button:not(:checked) + label img {
+    opacity: 0.4;
+}
+
+.building-icon-checkbox {
+    display: none;
+}
+
+.building-icon-checkbox + label img {
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+
+.building-icon-checkbox + label {
+    display: flex;
+    justify-content: center;
+}
+
+.building-icon-checkbox:not(:checked) + label img {
+    opacity: 0.4;
+}
+
 #graph-settings {
     color: antiquewhite;
     background-image: url("./images/graph-settings-bg.jpg");
     height: 100%;
     position: fixed;
-    width: 0;
+    width: auto;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 1;
-    padding-top: 1%;
-    transition: 0.5s;
-    /*overflow-y: auto;*/
-    overflow-x: hidden;
+
     scroll-margin-right: 100px;
     white-space: nowrap;
+    overflow-x: hidden;
+    padding-top: 1%; /* for smoother transition */
+    padding-bottom: 1%;
+}
+
+#graph-settings:not(.open) {
+    max-width: 0;
+    transition: max-width 500ms ease-in, padding 5ms linear 500ms;
+}
+
+#graph-settings.open {
+    padding: 1%;
+    width: auto;
+    box-sizing: border-box;
+    max-width: 100%;
+    transition: max-width 500ms ease-in 5ms, padding 5ms linear;
 }
 
 #graph-settings-body {
     overflow-y: auto;
-    bottom: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(218, 165, 32, 0.8) rgba(250, 235, 215, 0.9);
+    right: 0;
+    left: 0;
+    padding-bottom: 1%;
+    padding-right: 10px;
 }
 
 #graph-settings-header {
-    width: inherit;
+    width: auto;
     height: 45px;
     text-align: center;
     font-size: 30px;
@@ -39,7 +116,7 @@ hr {
     position: sticky;
     border-bottom: 2px solid goldenrod;
     margin-bottom: 0.5em;
-    padding-bottom: 0.3em;
+    padding-bottom: 0.7em;
 }
 
 #toggleSettingsBtn {
@@ -53,11 +130,10 @@ hr {
     font-size: 30px;
     border-color: goldenrod;
     background-color: #224134;
-    background-image: url("./images/icons/png/goto.png");
+    background-image: url("./images/paradox/gfx/interface/buttons/button_icons/goto.png");
     background-repeat: no-repeat;
     background-size: contain;
 }
-
 
 #toggleSettingsBtn span {
     vertical-align: center;
@@ -65,16 +141,23 @@ hr {
     margin: 0
 }
 
-#graph-settings.open {
-    width: 500px;
-    padding-left: 1%;
-    padding-right: 1%;
-    transition: 0.5s;
-}
-
 #graph-settings.open #toggleSettingsBtn {
     transform: rotate(180deg);
-    padding: 0;
+}
+
+#pmgPms {
+    background-color: antiquewhite;
+    z-index: 2;
+    border-radius: 10px;
+    width: 50px;
+    /*border: solid 1px;*/
+    /*box-sizing: border-box;*/
+    padding: 5px;
+}
+
+#buildingNameSlot {
+    font-weight: bolder;
+    color: #d7ae42;
 }
 
 #cy {

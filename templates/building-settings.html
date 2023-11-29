@@ -1,14 +1,16 @@
 <template>
-    <div class="hBox">
-        <div class="vBox">
-            <slot name="buildingName">Building-Name</slot>
-            <div class="hBox">
-                <button>ICON</button>
+    <link rel="stylesheet" href="../style.css">
 
-                <slot name="buildingInputs">Inputs</slot>
-                <slot name="buildingOutputs">Outputs</slot>
+    <div class="hBox">
+        <slot name="buildingIcon">ICON</slot>
+        <div class="vBox">
+            <slot id="buildingNameSlot" name="buildingName">Building-Name</slot>
+            <div class="hBox">
+
+                <div id="buildingInputs" class="vBox">Inputs</div>
+                <div id="buildingOutputs" class="vBox">Outputs</div>
             </div>
         </div>
-        <slot name="buildingPmgs" class="hBox">Building-PMGs</slot>
+        <div id="buildingPmgs" class="hBox"></div>
     </div>
 </template>

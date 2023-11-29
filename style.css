@@ -19,10 +19,15 @@ hr {
     z-index: 1;
     padding-top: 1%;
     transition: 0.5s;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     overflow-x: hidden;
     scroll-margin-right: 100px;
     white-space: nowrap;
+}
+
+#graph-settings-body {
+    overflow-y: auto;
+    bottom: 0;
 }
 
 #graph-settings-header {

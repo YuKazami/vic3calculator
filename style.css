@@ -32,6 +32,9 @@ hr {
     font-size: 30px;
     top: 0;
     position: sticky;
+    border-bottom: 2px solid goldenrod;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.3em;
 }
 
 #toggleSettingsBtn {
@@ -56,12 +59,6 @@ hr {
     text-align: center;
     margin: 0
 }
-
-#graph-settings-body {
-
-
-}
-
 
 #graph-settings.open {
     width: 500px;

@@ -45,10 +45,9 @@ hr {
     font-size: 30px;
     border-color: goldenrod;
     background-color: #224134;
-
-    /*TODO*/
     background-image: url("./images/icons/png/goto.png");
     background-repeat: no-repeat;
+    background-size: contain;
 }
 
 

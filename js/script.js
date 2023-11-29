@@ -218,27 +218,27 @@ async function main(){
     //neues Zeug
     const graph_setting = document.getElementById('graph-settings-body')
     for(const [building, value] of Object.entries(game_data["buildings"])){
-        const building_element = document.createElement('building-settings')
+        const building_element = document.createElement('buildingRoot')
+
         const buildingNameSlot = createSlot('span', 'buildingName', building_element);
         buildingNameSlot.innerText = getLocalized(building)
 
-
-        // TODO: load into name slot
-        //building_element.shadowRoot.append()
-
-        const building_pmgs_element = building_element.shadowRoot.getElementById('building-pmgs')
+        //const building_pmgs_element = building_element.shadowRoot.getElementById('building-pmgs')
+        const buildingPmgsSlot = createSlot('span', 'buildingPmgs', building_element)
         const pmgs = value['production_method_groups']
 
         for(const pmg of pmgs){
             const pmg_loc_name = getLocalized(pmg)
-            const pmg_choicebox_element = document.createElement('pmg-choicebox')
+            const pmgElement = document.createElement('pmgRoot')
+            //const pmg_choicebox_element = document.createElement('pmg-choicebox')
+            const pmgPmsSlot = createSlot('span', 'pmgPms', pmgElement)
             const pms = game_data['production_method_groups'][pmg]['production_methods']
             for(const pm of pms){
                 const pm_loc_name = getLocalized(pm)
-                pmg_choicebox_element.shadowRoot.append(pm_loc_name, ' ')
+                pmgPmsSlot.append(pm_loc_name, ' ')
             }
 
-            building_pmgs_element.append(pmg_choicebox_element, ' ')
+            buildingPmgsSlot.append(pmgPmsSlot, ' ')
         }
 
         graph_setting.append(building_element, document.createElement('br'), document.createElement('br'))

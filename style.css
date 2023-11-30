@@ -79,8 +79,8 @@ hr {
     scroll-margin-right: 100px;
     white-space: nowrap;
     overflow-x: hidden;
-    padding-top: 1%; /* for smoother transition */
-    padding-bottom: 1%;
+    padding-top: 1em; /* for smoother transition */
+    padding-bottom: 1em;
 }
 
 #graph-settings:not(.open) {
@@ -89,7 +89,7 @@ hr {
 }
 
 #graph-settings.open {
-    padding: 1%;
+    padding: 1em;
     width: auto;
     box-sizing: border-box;
     max-width: 100%;
@@ -103,7 +103,7 @@ hr {
     scrollbar-color: rgba(218, 165, 32, 0.8) rgba(250, 235, 215, 0.9);
     right: 0;
     left: 0;
-    padding-bottom: 1%;
+    padding-bottom: 1em;
     padding-right: 10px;
 }
 
@@ -115,19 +115,21 @@ hr {
     top: 0;
     position: sticky;
     border-bottom: 2px solid goldenrod;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3em;
     padding-bottom: 0.7em;
+    display: flex;
+    justify-content: center;
+    align-items: last baseline;
 }
 
 #toggleSettingsBtn {
-    left: 1%;
-    top: 10px;
+    left: 1em;
+    top: 1em;
     position: fixed;
     z-index: 2;
     border-radius: 50%;
-    width: 1.5em;
-    height: 1.5em;
-    font-size: 30px;
+    width: 45px;
+    height: 45px;
     border-color: goldenrod;
     background-color: #224134;
     background-image: url("./images/paradox/gfx/interface/buttons/button_icons/goto.png");

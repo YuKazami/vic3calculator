@@ -109,17 +109,17 @@ hr {
 
 #graph-settings-header {
     width: auto;
-    height: 45px;
     text-align: center;
     font-size: 30px;
     top: 0;
     position: sticky;
     border-bottom: 2px solid goldenrod;
-    margin-bottom: 0.3em;
-    padding-bottom: 0.7em;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     display: flex;
+    min-height: 45px;
     justify-content: center;
-    align-items: last baseline;
+    align-items: center;
 }
 
 #toggleSettingsBtn {

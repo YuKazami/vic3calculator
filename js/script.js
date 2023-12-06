@@ -286,5 +286,29 @@ async function main(){
         }
         graph_setting.append(building_element, document.createElement('br'), document.createElement('br'))
     }
+
+    graph_setting.addEventListener('click', clickTest)
 }
 main()
+
+function clickTest(event){
+    const targetElement = event.composedPath()[0]
+    if(targetElement.classList.contains('building-icon-checkbox')){
+        const checked = targetElement.checked
+        //TODO: add building key to data of inputElement
+        console.log(targetElement.id, checked)
+    } else if (targetElement.classList.contains('pm-radio-button')) {
+        const pm  = targetElement.id
+        const building = targetElement.name
+        //TODO: add building, pmg and pm key to data of inputElement
+        console.log(building, pm)
+
+
+        //const selected_pms = Array.from(targetElement.shadowRoot.querySelectorAll('pmg-choicebox')).map(choiceBox => choiceBox.shadowRoot.querySelector('input[type="radio"]:checked').id)
+        //console.log(selected_pms)
+
+    } else {
+        //console.log(targetElement, targetElement.tagName)
+    }
+
+}

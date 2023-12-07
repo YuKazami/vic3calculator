@@ -80,7 +80,7 @@ async function init_cytoscape() {
     await fill_cytoscape(cy)
 }
 
-async function refresh_edges(selected_pms) {
+async function refresh_edges() {
     for (const [building_key, building_val] of Object.entries(selected_pms)) {
         let inputs = {}
         let outputs = {}
@@ -148,26 +148,11 @@ async function graph_controller() {
     // TODO get selected buildings, toggle all, toggle by section(mine/farm/etc)
     // TODO get selected PMs
 
-    let selected_pms = {}
-
-    //region Temp
-    let selected_buildings = ["building_food_industry", "building_textile_mills", "building_tooling_workshops", "building_paper_mills"]
-    selected_buildings = Object.keys(game_data["buildings"])
-    for (const building of selected_buildings) {
-        const pmgs = game_data["buildings"][building]["production_method_groups"]
-        let pms = []
-        for (const pmg of pmgs) {
-            pms.push(game_data["production_method_groups"][pmg]["production_methods"][0])
-        }
-        selected_pms[building] = pms
-    }
-
-    //endregion
 
     //console.log(selected_pms)
 
 
-    await refresh_edges(selected_pms)
+    await refresh_edges()
 
     // filter lonely nodes
     await remove_isolated_nodes()
@@ -209,6 +194,20 @@ function getLocalized(word) {
 
 async function main() {
     await fetch_files()
+
+    //region Temp
+    let selected_buildings = ["building_food_industry", "building_textile_mills", "building_tooling_workshops", "building_paper_mills"]
+    selected_buildings = Object.keys(game_data["buildings"])
+    for (const building of selected_buildings) {
+        const pmgs = game_data["buildings"][building]["production_method_groups"]
+        let pms = []
+        for (const pmg of pmgs) {
+            pms.push(game_data["production_method_groups"][pmg]["production_methods"][0])
+        }
+        selected_pms[building] = pms
+    }
+
+    //endregion
 
     await graph_controller()
 
@@ -297,19 +296,23 @@ function clickTest(event) {
     if (targetElement.classList.contains('building-icon-checkbox')) {
         const checked = targetElement.checked
         const buildingElement = event.composedPath()[5]
-        const selected_pms = readBuildingElement(buildingElement)
-        console.log(selected_pms)
+        const new_selected_pms = readBuildingElement(buildingElement)
+        if (checked) {
+            selected_pms[new_selected_pms[0]] = new_selected_pms[1]
+        } else {
+            delete selected_pms[new_selected_pms[0]]
+        }
+        refresh_graph()
 
     } else if (targetElement.classList.contains('pm-radio-button')) {
         const buildingElement = event.composedPath()[8]
-        const selected_pms = readBuildingElement(buildingElement)
-        console.log(selected_pms)
+        const new_selected_pms = readBuildingElement(buildingElement)
+        selected_pms[new_selected_pms[0]] = new_selected_pms[1]
+        refresh_graph()
 
     } else {
         return;
     }
-
-
 }
 
 function readBuildingElement(buildingElement) {
@@ -326,4 +329,8 @@ function readBuildingElement(buildingElement) {
     }
 
     return [buildingKey, pmList]
+}
+
+async function refresh_graph() {
+    await graph_controller()
 }
